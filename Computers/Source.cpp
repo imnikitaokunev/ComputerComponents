@@ -1,7 +1,4 @@
-#include "CPU.h"
-#include "GraphicsCard.h"
-#include "Memory.h"
-#include "Computer.h"
+#include "Tree.h"
 
 int main()
 {
