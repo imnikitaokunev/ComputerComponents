@@ -60,7 +60,7 @@ void Tree<T>::showPrivate(Node<T>* root)
 	if (root != NULL)
 	{
 		showPrivate(root->left);
-		cout << root->key << endl;
+		cout << root->key << "  ";
 		showPrivate(root->right);
 	}
 }
@@ -107,8 +107,76 @@ Node<T>* Tree<T>::findPrivate(Node<T>* root, T key)
 	else if (key >= root->key)
 		return findPrivate(root->right, key);
 
-
-	return false;
+	return NULL;
 }
 
+template <class T>
+void Tree<T>::removeTree()
+{
+	removeTreePrivate(root);
+}
 
+template <class T>
+void Tree<T>::removeTreePrivate(Node<T>*& root)
+{
+	if (root != NULL)
+	{
+		if(root->left != NULL)
+			removeTreePrivate(root->left);
+		if(root->right != NULL)
+			removeTreePrivate(root->right);
+		delete root;
+	}
+	root = NULL;
+}
+
+template <class T>
+void Tree<T>::remove(Node<T>* ptr)
+{
+	removePrivate(root, ptr);
+}
+
+template <class T>
+void Tree<T>::removePrivate(Node<T>*& root, Node<T>* ptr)
+{
+	Node<T>* temp;
+	if (root == NULL)
+	{
+		return;
+	}
+	else if (ptr->key < root->key)
+	{
+		removePrivate(root->left, ptr);
+	}
+	else if (ptr->key > root->key)
+	{
+		removePrivate(root->right, ptr);
+	}
+	else if (root->left != NULL && root->right != NULL)
+	{
+		temp = findMin(root->right);
+		root->key = temp->key;
+		removePrivate(root->right, root);
+	}
+	else if (ptr->key == root->key)
+	{
+		temp = root;
+		if (root->left == NULL)
+			root = root->right;
+		else if (root->right == NULL)
+			root = root->left;
+		delete temp;
+	}
+
+}
+
+template <class T>
+Node<T>* Tree<T>::findMin(Node<T>* root)
+{
+	if (root == NULL)
+		return NULL;
+	else if (root->left == NULL)
+		return root;
+	else
+		return findMin(root->left);
+}

@@ -11,21 +11,17 @@ int main()
 	tree.add(4);
 	tree.add(11);
 	tree.add(2);
-	tree.add(7);
+	tree.add(6);
 	tree.show();
 
 	cout << endl;
-	Node<int>* ptr = tree.find(5);
+	Node<int>* ptr = tree.find(2);
 	if (ptr != NULL)
 	{
-		cout << ptr->key;
-	}
-	else
-	{
-		cout << "Ничего не найдено." << endl;
+		tree.remove(ptr);
 	}
 	
-
+	tree.show();
 	cout << endl;
 	system("pause");
 	return 0;

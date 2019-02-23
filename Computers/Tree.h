@@ -17,9 +17,11 @@ class Tree
 private:
 	Node<T> *root;
 	void addPrivate(Node<T>*& root, T key);
-	void showPrivate(Node<T> *root);
+	void showPrivate(Node<T>* root);
 	Node<T>* findPrivate(Node<T>* root, T key);
-	void removePrivate(Node<T>* key);
+	void removeTreePrivate(Node<T>*& root);
+	void removePrivate(Node<T>*& root, Node<T>* ptr);
+	Node<T>* findMin(Node<T>* root);
 public:
 	Tree()
 	{
@@ -27,12 +29,14 @@ public:
 	}
 	~Tree()
 	{
-		//Удалить все дерево
+		removeTreePrivate(root);
 	}
 	Node<T>* node(T key);
 	void add(T obj);
 	void show();
 	Node<T>* find(T key);
-	void remove(T key);
+	void removeTree();
+	void remove(Node<T>* ptr);
+
 };
 
