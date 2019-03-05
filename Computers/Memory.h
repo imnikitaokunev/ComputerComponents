@@ -17,7 +17,7 @@ public:
 	{
 
 	}
-	Memory(const Memory& other)
+	Memory(const Memory& other) : ElectronicDevice(other)
 	{
 		this->memoryType = other.memoryType;
 		this->capacity = other.capacity;
@@ -28,6 +28,7 @@ public:
 	int getCapacity() const;
 	virtual void title();
 	virtual void header();
+	bool compare(Memory& other, bool* flag);
 	friend istream& operator >> (istream& in, Memory& obj);
 	friend ostream& operator << (ostream& out, Memory& obj);
 };

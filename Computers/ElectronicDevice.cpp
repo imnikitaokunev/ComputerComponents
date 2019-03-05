@@ -1,5 +1,7 @@
 #include "ElectronicDevice.h"
 
+Field ElectronicDevice::field = MODEL;
+
 void ElectronicDevice::setModel(string mdl)
 {
 	model = mdl;
@@ -32,9 +34,9 @@ void ElectronicDevice::title()
 
 istream& operator >>(istream& in, ElectronicDevice& obj)
 {
-	cout << "Model: ";
+	cout << "Модель: ";
 	in >> obj.model;
-	cout << "Cost: ";
+	cout << "Стоимость: ";
 	in >> obj.cost;
 	return in;
 }

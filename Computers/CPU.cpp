@@ -22,7 +22,7 @@ int CPU::getBaseFrequency() const
 
 void CPU::title()
 {
-	cout << setw(39) << "---CPU---" << endl;
+	cout << setw(39) << "---Процессоры---" << endl;
 }
 
 void CPU::header()
@@ -37,9 +37,9 @@ void CPU::header()
 istream& operator >> (istream& in, CPU& obj)
 {
 	in >> dynamic_cast<ElectronicDevice&> (obj);
-	cout << "Count of cores: ";
+	cout << "Количество ядер: ";
 	in >> obj.countOfCores;
-	cout << "Base frequency: ";
+	cout << "Базовая частота: ";
 	in >> obj.baseFrequency;
 	return in;
 }
@@ -50,4 +50,22 @@ ostream& operator << (ostream& out, CPU& obj)
 	out << setw(4) << "|" << setw(8) << obj.countOfCores << setw(4) << "|" << setw(8)
 		<< obj.baseFrequency;
 	return out;
+}
+
+bool CPU::compare(CPU& other, bool* flag)
+{
+	if (flag[COST] == true)
+		if (this->cost != other.cost)
+			return false;
+	if (flag[MODEL] == true)
+		if (this->model != other.model)
+			return false;
+	if (flag[BASEFREQUENCY] == true)
+		if (this->baseFrequency != other.baseFrequency)
+			return false;
+	if (flag[COUNTOFCORES] == true)
+		if (this->countOfCores != other.countOfCores)
+			return false;
+
+	return true;
 }

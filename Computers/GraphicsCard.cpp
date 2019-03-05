@@ -36,3 +36,18 @@ ostream& operator << (ostream& out, GraphicsCard& obj)
 	out << setw(4) << "|" << setw(7) << obj.memorySize;
 	return out;
 }
+
+bool GraphicsCard::compare(GraphicsCard& other, bool* flag)
+{
+	if (flag[COST] == true)
+		if (this->cost != other.cost)
+			return false;
+	if (flag[MODEL] == true)
+		if (this->model != other.model)
+			return false;
+	if (flag[MEMORYSIZE] == true)
+		if (this->memorySize != other.memorySize)
+			return false;
+
+	return true;
+}

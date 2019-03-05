@@ -21,12 +21,24 @@ public:
 	}
 	Computer(const Computer& other)
 	{
+		this->cost = other.cost;
+		this->model = other.model;
+		this->countOfCores = other.countOfCores;
+		this->baseFrequency = other.baseFrequency;
+		this->memorySize = other.memorySize;
+		this->memoryType = other.memoryType;
+		this->capacity = other.capacity;
 		this->drive = other.drive;
 	}
 	void setDrive(int dr);
 	int getDrive() const;
 	virtual void title();
 	virtual void header();
+	bool isEqual(Computer& other, bool* flag);
+
 	friend istream& operator >> (istream& in, Computer& obj);
 	friend ostream& operator << (ostream& out, Computer& obj);
+	bool operator == (Computer& other);
+	bool operator >(Computer& other);
+	bool operator <(Computer& other);
 };

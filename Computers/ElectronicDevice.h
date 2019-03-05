@@ -4,13 +4,26 @@
 #include <iomanip>
 using namespace std;
 
+enum Field
+{
+	COST,
+	MODEL,
+	CAPACITY,
+	MEMORYTYPE,
+	MEMORYSIZE,
+	BASEFREQUENCY,
+	COUNTOFCORES, 
+	DRIVE
+};
+
 class ElectronicDevice
 {
 protected:
-	string model;		//Модель прибора
-	int cost;			//Стоимость
-
+	string model;			//Модель прибора
+	int cost;				//Стоимость
+	
 public:
+	static Field field;
 	ElectronicDevice(string mdl = "", int cst = 0)
 	{
 		model = mdl;
@@ -20,10 +33,10 @@ public:
 	{
 
 	}
-	ElectronicDevice(const ElectronicDevice& obj)
+	ElectronicDevice(const ElectronicDevice& other)
 	{
-		this->model = obj.model;
-		this->cost = obj.cost;
+		this->model = other.model;
+		this->cost = other.cost;
 	}
 
 	void setModel(string mdl);
@@ -32,7 +45,7 @@ public:
 	int getCost() const;
 	virtual void title();
 	virtual void header();
-
+	bool compare(ElectronicDevice& other, bool* flag);
 	friend istream& operator >>(istream& in, ElectronicDevice& obj);
 	friend ostream& operator <<(ostream& out, ElectronicDevice& obj);
 };

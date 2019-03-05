@@ -17,7 +17,7 @@ public:
 	{
 
 	}
-	CPU(const CPU& other)
+	CPU(const CPU& other) : ElectronicDevice(other)
 	{
 		this->countOfCores = other.countOfCores;
 		this->baseFrequency = other.baseFrequency;
@@ -28,6 +28,7 @@ public:
 	int getBaseFrequency() const;
 	virtual void title() override;
 	virtual void header() override;
+	bool compare(CPU& other, bool* flag);
 	friend istream& operator >> (istream& in, CPU& obj);
 	friend ostream& operator << (ostream& out, CPU& obj);
 

@@ -18,10 +18,11 @@ private:
 	Node<T> *root;
 	void addPrivate(Node<T>*& root, T key);
 	void showPrivate(Node<T>* root);
-	Node<T>* findPrivate(Node<T>* root, T key);
+	Node<T>* findPrivate(Node<T>* root, T key, bool* flag);
 	void removeTreePrivate(Node<T>*& root);
-	void removePrivate(Node<T>*& root, Node<T>* ptr);
+	void removePrivate(Node<T>*& root, Node<T>*& ptr, bool *flag);
 	Node<T>* findMin(Node<T>* root);
+	void showByFilterPrivate(Node<T>* root, T key, bool* flag);
 public:
 	Tree()
 	{
@@ -34,9 +35,9 @@ public:
 	Node<T>* node(T key);
 	void add(T obj);
 	void show();
-	Node<T>* find(T key);
+	Node<T>* find(T key, bool *flag);
 	void removeTree();
-	void remove(Node<T>* ptr);
-
+	void remove(Node<T>* ptr, bool* flag);
+	void showByFilter(T key, bool* flag);
 };
 
