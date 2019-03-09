@@ -35,7 +35,7 @@ void ElectronicDevice::title()
 istream& operator >>(istream& in, ElectronicDevice& obj)
 {
 	cout << "Модель: ";
-	in >> obj.model;
+	obj.model = inputString();
 	cout << "Стоимость: ";
 	in >> obj.cost;
 	return in;

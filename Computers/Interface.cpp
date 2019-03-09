@@ -97,13 +97,13 @@ void Interface<T>::fun()
 			system("cls");
 			cout << "¬ведите элемент, который вы хотите удалить." << endl;
 			T temp;
-			bool flag[8] = { true, true, true, true, true, true, true, true };
 			cin >> temp;
-			Node<T>* ptr = tree.find(temp, flag);
+			Node<T>* ptr = tree.find(temp);
 			cout << endl;
 			if (ptr != nullptr)
 			{
-				tree.remove(ptr, flag);
+				cout << endl << endl << ptr->key << endl << endl;
+				tree.remove(temp);
 				cout << "Ёлемент " << temp.getModel() << " успешно удален." << endl;
 			}
 			else

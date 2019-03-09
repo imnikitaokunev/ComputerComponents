@@ -51,21 +51,3 @@ ostream& operator << (ostream& out, CPU& obj)
 		<< obj.baseFrequency;
 	return out;
 }
-
-bool CPU::compare(CPU& other, bool* flag)
-{
-	if (flag[COST] == true)
-		if (this->cost != other.cost)
-			return false;
-	if (flag[MODEL] == true)
-		if (this->model != other.model)
-			return false;
-	if (flag[BASEFREQUENCY] == true)
-		if (this->baseFrequency != other.baseFrequency)
-			return false;
-	if (flag[COUNTOFCORES] == true)
-		if (this->countOfCores != other.countOfCores)
-			return false;
-
-	return true;
-}

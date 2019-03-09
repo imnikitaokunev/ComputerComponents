@@ -2,6 +2,7 @@
 #include <iostream>
 #include <string>
 #include <iomanip>
+#include "Input.h"
 using namespace std;
 
 enum Field

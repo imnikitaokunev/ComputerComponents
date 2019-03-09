@@ -28,7 +28,6 @@ public:
 	int getCapacity() const;
 	virtual void title();
 	virtual void header();
-	bool compare(Memory& other, bool* flag);
 	friend istream& operator >> (istream& in, Memory& obj);
 	friend ostream& operator << (ostream& out, Memory& obj);
 };

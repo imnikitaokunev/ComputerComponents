@@ -33,7 +33,7 @@ istream& operator >>(istream& in, Computer& obj)
 	cout << "Видеопамять: ";
 	in >> obj.memorySize;
 	cout << "Тип ОЗУ: ";
-	in >> obj.memoryType;
+	obj.memoryType = inputString();
 	cout << "Емкость ОЗУ: ";
 	in >> obj.capacity;
 	cout << "Винчестер: ";
@@ -53,28 +53,20 @@ ostream& operator <<(ostream& out, Computer& obj)
 
 bool Computer::operator==(Computer& other)
 {
-	if (field == COST)
 		if (this->cost != other.cost)
 			return false;
-	if (field == MODEL)
 		if (this->model != other.model)
 			return false;
-	if (field == CAPACITY)
 		if (this->capacity != other.capacity)
 			return false;
-	if (field == MEMORYTYPE)
 		if (this->memoryType != other.memoryType)
 			return false;
-	if (field == MEMORYSIZE)
 		if (this->memorySize != other.memorySize)
 			return false;
-	if (field == BASEFREQUENCY)
 		if (this->baseFrequency != other.baseFrequency)
 			return false;
-	if (field == COUNTOFCORES)
 		if (this->countOfCores != other.countOfCores)
 			return false;
-	if (field == DRIVE)
 		if (this->drive != other.drive)
 			return false;
 
@@ -169,4 +161,34 @@ bool Computer::isEqual(Computer& other, bool *flag)
 			return false;
 
 	return true;
+}
+
+bool Computer::isEqual(Computer& other)
+{
+	if (field == COST)
+		if (this->cost == other.cost)
+			return true;
+	if (field == MODEL)
+		if (this->model == other.model)
+			return true;
+	if (field == CAPACITY)
+		if (this->capacity == other.capacity)
+			return true;
+	if (field == MEMORYTYPE)
+		if (this->memoryType == other.memoryType)
+			return true;
+	if (field == MEMORYSIZE)
+		if (this->memorySize == other.memorySize)
+			return true;
+	if (field == BASEFREQUENCY)
+		if (this->baseFrequency == other.baseFrequency)
+			return true;
+	if (field == COUNTOFCORES)
+		if (this->countOfCores == other.countOfCores)
+			return true;
+	if (field == DRIVE)
+		if (this->drive == other.drive)
+			return true;
+
+	return false;
 }

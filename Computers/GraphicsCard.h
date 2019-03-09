@@ -23,7 +23,6 @@ public:
 	int getMemorySize() const;
 	virtual void title() override;
 	virtual void header() override;
-	bool compare(GraphicsCard& other, bool* flag);
 	friend istream& operator >> (istream& in, GraphicsCard& obj);
 	friend ostream& operator << (ostream& out, GraphicsCard& obj);
 };
