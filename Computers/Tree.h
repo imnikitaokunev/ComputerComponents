@@ -3,6 +3,12 @@
 #include <iostream>
 using namespace std;
 
+enum SortType
+{
+	SORTTYPE_FORWARD,
+	SORTTYPE_BACKWARDS
+};
+
 template <class T>
 struct Node
 {
@@ -23,6 +29,9 @@ private:
 	Node<T>* removePrivate(Node<T>*& root, T key);
 	Node<T>* findMin(Node<T>* root);
 	void showByFilterPrivate(Node<T>* root, T key, bool* flag);
+	void calculateCountOfNodes(Node<T>* root, int& count);
+	void fillArray(Node<T>* root, T* arr, int& index);
+	void balance(Node<T>*& root, int n, int size, T* arr);
 public:
 	Tree()
 	{
@@ -39,5 +48,9 @@ public:
 	void removeTree();
 	void remove(T key);
 	void showByFilter(T key, bool* flag);
+	void sort(SortType sortType);
+	void readFile();
+	void writeFile();
 };
+
 

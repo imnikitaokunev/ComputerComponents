@@ -50,6 +50,7 @@ void Interface<T>::menu()
 template <class T>
 void Interface<T>::fun()
 {
+
 	Tree<T> tree;
 	char choice;
 	do
@@ -58,12 +59,12 @@ void Interface<T>::fun()
 		obj.title();
 		cout << "\t1. Добавить." << endl
 			<< "\t2. Просмотреть." << endl
-			<< "\t3. *Редактировать." << endl
+			<< "\t3. Изменить." << endl
 			<< "\t4. Удалить." << endl
 			<< "\t5. Удалить все." << endl
 			<< "\t6. Поиск." << endl
 			<< "\t7. Сортировка." << endl
-			<< "\t8. Отмена последних изменений." << endl
+			<< "\t8. *Отмена последних изменений." << endl
 			<< "\t0. Выход." << endl
 			<< endl << "\t  >> ";
 		choice = _getch();
@@ -92,17 +93,44 @@ void Interface<T>::fun()
 			system("pause");
 			break;
 		}
-		case '4':
+		case '3':
 		{
 			system("cls");
-			cout << "Введите элемент, который вы хотите удалить." << endl;
+			obj.title();
+			cout << endl;
+			obj.header();
+			tree.show();
+			cout << endl;
+			cout << "Какой элемент вы хотите изменить?" << endl;
 			T temp;
 			cin >> temp;
 			Node<T>* ptr = tree.find(temp);
 			cout << endl;
 			if (ptr != nullptr)
 			{
-				cout << endl << endl << ptr->key << endl << endl;
+				ptr->key.change();
+				cout << "Элемент " << temp.getModel() << " успешно изменен." << endl;
+			}
+			else
+				cout << "Ничего не найдено." << endl;
+			system("pause");
+			break;
+		}
+		case '4':
+		{
+			system("cls");
+			obj.title();
+			cout << endl;
+			obj.header();
+			tree.show();
+			cout << endl;
+			cout << "Какой элемент вы хотите удалить?" << endl;
+			T temp;
+			cin >> temp;
+			Node<T>* ptr = tree.find(temp);
+			cout << endl;
+			if (ptr != nullptr)
+			{
 				tree.remove(temp);
 				cout << "Элемент " << temp.getModel() << " успешно удален." << endl;
 			}
@@ -120,16 +148,51 @@ void Interface<T>::fun()
 		{
 			system("cls");
 			T temp;
-			string model;
-			bool flag[8];
-			cout << "Введите модель: ";
-			cin >> model;
-			temp.setModel(model);
-			flag[MODEL] = true;
+			bool flag[8] = {false, false, false, false, false, false, false, false};
+			temp.search(flag);
 			obj.title();
 			cout << endl;
 			obj.header();
 			tree.showByFilter(temp, flag);
+			cout << endl;
+			system("pause");
+			break;
+		}
+		case '7':
+		{
+			do
+			{
+				system("cls");
+				obj.title();
+				cout << "  В каком порядке сортировать?" << endl;
+				cout << "\t1. По возрастанию." << endl
+					<< "\t2. По убыванию." << endl
+					<< "\t0. Назад." << endl
+					<< endl << "\t  >> ";
+				choice = _getch();
+				switch (choice)
+				{
+				case '1':
+					tree.sort(SORTTYPE_FORWARD);
+					break;
+				case '2':
+					tree.sort(SORTTYPE_BACKWARDS);
+					break;
+				case '0':
+					break;
+				default:
+					cout << endl;
+					cout << "Некорректный ввод." << endl;;
+					system("pause");
+					break;
+				}
+			} while (choice != '1' && choice != '2');
+
+			obj.title();
+			cout << endl;
+			obj.header();
+			tree.show();
+			cout << endl << "  Успешно отсортировано." << endl;
 			cout << endl;
 			system("pause");
 			break;

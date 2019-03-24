@@ -34,10 +34,18 @@ void ElectronicDevice::title()
 
 istream& operator >>(istream& in, ElectronicDevice& obj)
 {
-	cout << "Модель: ";
-	obj.model = inputString();
+	do {
+		try {
+			cout << "Модель: ";
+			obj.model = inputStringWithNums();
+		}
+		catch (const char* str)
+		{
+			cout << str << endl;
+		}
+	} while (obj.model == "");
 	cout << "Стоимость: ";
-	in >> obj.cost;
+	obj.cost = inputNumber(MIN, MAX);
 	return in;
 }
 

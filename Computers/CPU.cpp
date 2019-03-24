@@ -38,9 +38,9 @@ istream& operator >> (istream& in, CPU& obj)
 {
 	in >> dynamic_cast<ElectronicDevice&> (obj);
 	cout << "Количество ядер: ";
-	in >> obj.countOfCores;
+	obj.countOfCores = inputNumber(MIN, MAXCORES);
 	cout << "Базовая частота: ";
-	in >> obj.baseFrequency;
+	obj.baseFrequency = inputNumber(MIN, MAXFREQUENCY);
 	return in;
 }
 

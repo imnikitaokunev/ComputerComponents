@@ -125,8 +125,8 @@ Node<T>* Tree<T>::removePrivate(Node<T>*& root, T key)
 	
 	else if (key == root->key)
 	{
-		if (root->left && root->right)					//Если у удаляемого объекта есть 2 потомка заменяем
-		{												//его минимальным элементов для левого поддерева текущего элемента
+		if (root->left && root->right)					
+		{												
 			temp = findMin(root->right);
 				root->key = temp->key;
 				root->right = removePrivate(root->right, root->key);
@@ -175,4 +175,93 @@ void Tree<T>::showByFilterPrivate(Node<T>* root, T key, bool* flag)
 			cout << root->key << endl;
 		showByFilterPrivate(root->right, key, flag);
 	}
+}
+
+template <class T>
+void Tree<T>::calculateCountOfNodes(Node<T>* root, int& count)
+{
+	if (root != NULL)
+	{
+		calculateCountOfNodes(root->left, count);
+		count++;
+		calculateCountOfNodes(root->right, count);
+	}
+}
+
+template <class T>
+void Tree<T>::fillArray(Node<T>* root, T* arr, int& index)
+{
+	if (root != NULL)
+	{
+		fillArray(root->right, arr, index);
+		arr[index] = root->key;
+		index++;
+		fillArray(root->left, arr, index);
+	}
+}
+
+template <class T>
+void Tree<T>::balance(Node<T>*& root, int n, int size, T* arr)
+{
+	if (n == size)
+	{
+		root = NULL;
+		return;
+	}
+	else
+	{
+		int m = (n + size) / 2;					//Выбираем средний элемент отрезка
+		root = new Node<T>;
+		root->key = arr[m];
+		balance(root->left, n, m, arr);
+		balance(root->right, m + 1, size, arr);
+	}
+}
+
+template <class T>
+void Tree<T>::sort(SortType sortType)
+{
+	int size = 0;
+	calculateCountOfNodes(root, size);			//Подсчет количества элементов в дереве
+
+	T* arr = new T[size];
+	T temp;
+	int index = 0;
+	fillArray(root, arr, index);
+	
+	temp.changeField();
+
+	if (sortType == SORTTYPE_FORWARD)
+	{
+		for (int i = 0; i < size; i++)
+		{
+			for (int j = 0; j < size; j++)
+			{
+				if (arr[i] < arr[j])
+				{
+					temp = arr[i];
+					arr[i] = arr[j];
+					arr[j] = temp;
+				}
+			}
+		}
+	}
+	else
+	{
+		for (int i = 0; i < size; i++)
+		{
+			for (int j = 0; j < size; j++)
+			{
+				if (arr[i] > arr[j])
+				{
+					temp = arr[i];
+					arr[i] = arr[j];
+					arr[j] = temp;
+				}
+			}
+		}
+	}
+
+	balance(root, 0, size, arr);
+	delete[]arr;
 }

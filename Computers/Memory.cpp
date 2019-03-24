@@ -39,7 +39,7 @@ istream& operator >> (istream& in, Memory& obj)
 	cout << "Òèï ÎÇÓ: ";
 	obj.memoryType = inputString();
 	cout << "Åìêîñòü ÎÇÓ: ";
-	in >> obj.capacity;
+	obj.capacity = inputNumber(MIN, MAXCAPACITY);
 	return in;
 }
 

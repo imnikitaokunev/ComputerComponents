@@ -2,7 +2,8 @@
 #include "Computer.h"
 #include "Tree.h"
 #include "Tree.cpp"
-#include <conio.h>
+#include "Stack.h"
+#include "Stack.cpp"
 
 template <class T>
 class Interface

@@ -25,8 +25,8 @@ void GraphicsCard::header()
 istream& operator >>(istream& in, GraphicsCard& obj)
 {
 	in >> dynamic_cast<ElectronicDevice&> (obj);
-	cout << "Видеопамять: ";
-	in >> obj.memorySize;
+	cout << "Объем видеопамяти: ";
+	obj.memorySize = inputNumber(MIN, MAXVRAM);
 	return in;
 }
 

@@ -2,7 +2,9 @@
 #include <iostream>
 #include <string>
 #include <iomanip>
+#include <conio.h>
 #include "Input.h"
+#include "InputNumber.cpp"
 using namespace std;
 
 enum Field

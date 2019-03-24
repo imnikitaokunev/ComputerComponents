@@ -36,6 +36,9 @@ public:
 	virtual void header();
 	bool isEqual(Computer& other, bool* flag);
 	bool isEqual(Computer& other);
+	void change();
+	void search(bool *flag);
+	void changeField();
 
 	friend istream& operator >> (istream& in, Computer& obj);
 	friend ostream& operator << (ostream& out, Computer& obj);
