@@ -1,43 +1,28 @@
 #pragma once
-#include <iomanip>
 #include <iostream>
-#include <fstream>
-#include "BinaryFile.h"
-#include "BinaryFile.cpp"
 using namespace std;
-
-enum SortType
-{
-	SORTTYPE_FORWARD,
-	SORTTYPE_BACKWARDS
-};
 
 template <class T>
 struct Node
 {
-	T key;				//Информационная часть
-	Node *right,		//Указатель на правое поддерево
-		 *left;			//Указатель на левое поддерево
+	T key;			//Ключ элемента
+	Node* left;		//Указатель на левого потомка	
+	Node* right;	//Указатель на правого потомка
+	Node* parent;	//Указатель на родителя
 };
 
 template <class T>
 class Tree
 {
 private:
-	Node<T> *root;
-	void addPrivate(Node<T>*& root, T key);
-	void showPrivate(Node<T>* root);
-	Node<T>* findPrivate(Node<T>* root, T key);
-	void removeTreePrivate(Node<T>*& root);
-	Node<T>* removePrivate(Node<T>*& root, T key);
-	Node<T>* findMin(Node<T>* root);
-	void showByFilterPrivate(Node<T>* root, T key, bool* flag);
-	void calculateCountOfNodes(Node<T>* root, int& count);
-	void fillArray(Node<T>* root, T* arr, int& index);
-	void balance(Node<T>*& root, int n, int size, T* arr);
-	void writeFilePrivate(Node<T>* root, ofstream& fout);
-	void writeToBinaryPrivate(Node<T>* root, BinaryFile<T>& obj);
-
+	template <class T>
+	friend class Iterator;
+	Node<T>* root;									//Указатель на корень дерева
+	Node<T>* node(T key);							//Создает узел с ключом key
+	Node<T>* addPrivate(Node<T>* root, T key);		//Добавляет элемент key в дерево
+	void removeTreePrivate(Node<T>*& root);			//Удаляет все элементы дерева
+	Node<T>* findPrivate(Node<T>* root, T key);		//Возвращает указатель на элемент с ключом key
+	Node<T>* findMin(Node<T>* root);				//Возвращает указатель на минимальный элемент
 public:
 	Tree()
 	{
@@ -45,20 +30,15 @@ public:
 	}
 	~Tree()
 	{
-		removeTreePrivate(root);
+		removeTree();
 	}
-	Node<T>* node(T key);
-	void add(T obj);
-	void show();
-	Node<T>* find(T key);
-	void removeTree();
-	void remove(T key);
-	void showByFilter(T key, bool* flag);
-	void sort(SortType sortType);
-	void readFile(string FileName);
-	void writeFile(string fileName);
-	void writeToBinary(BinaryFile<T> &obj);
-	void readFromBinary(BinaryFile<T>& obj);
+	void add(T key);					//Добавляет элемент key в дерево
+	void removeTree();					//Удаляет все элементы дерева
+	Node<T>* find(T key);				//Возвращает указатель на элемент, содержащий ключ key, или NULL, если ничего не найдено
+	void deleteNode(Node<T>* ptr);		//Удаляет элемент ptr из дерева
+	bool Empty();						//Возвращает true, если дерево пустое, и false, если нет
+	Node<T>* begin();					//Возвращает указатель на первый элемент дерева
+	Node<T>* end();						//Вовзращает указатель на элемент, следующий после конца дерева
+	
 };
-
 

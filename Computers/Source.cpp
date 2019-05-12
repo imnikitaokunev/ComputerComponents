@@ -6,7 +6,7 @@ int main()
 	setlocale(LC_ALL, "rus");
 	set_terminate(my_term);
 
-	//Interface<int> obj;
+	Interface<int> obj;
 	obj.menu();
 
 	cout << endl;

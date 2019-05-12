@@ -1,7 +1,6 @@
 #pragma once
 #include "Computer.h"
-//#include "Tree.h"
-#include "Tree.cpp"
+#include "Iterator.cpp"
 
 template <class T>
 class Interface
@@ -11,6 +10,6 @@ private:
 
 public:
 	void menu();
-	void fun(string textFileName, string binaryFileName);
+	void fun();
 };
 

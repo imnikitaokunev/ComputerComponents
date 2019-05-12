@@ -1,68 +1,99 @@
-#pragma once
 #include "Tree.h"
 
-
 template <class T>
-void Tree<T>::add(T obj)
+Node<T>* Tree<T>::node(T key)
 {
-	addPrivate(root, obj);
+	Node<T>* temp = new Node<T>;
+	temp->key = key;
+	temp->left = temp->right = NULL;
+	temp->parent = NULL;
+	return temp;
 }
 
 template <class T>
-void Tree<T>::addPrivate(Node<T>*& root, T obj)
+void Tree<T>::add(T key)
 {
 	if (root == NULL)
 	{
-		root = node(obj);
+		root = addPrivate(root, key);
 	}
-	else if (obj < root->key)
+	else
+	{
+		addPrivate(root, key);
+	}
+}
+
+template <class T>
+Node<T>* Tree<T>::addPrivate(Node<T>* root, T key)
+{
+	/*if (root == NULL)
+	{
+		root = node(key);
+	}
+	else if (key < root->key)
 	{
 		if (root->left != NULL)
 		{
-			addPrivate(root->left, obj);
+			addPrivate(root->left, key);
 		}
 		else
 		{
-			root->left = node(obj);
+			root->left = node(key);
 		}
 	}
-	else if (obj > root->key || obj.isEqual(root->key))
+	else
 	{
 		if (root->right != NULL)
 		{
-			addPrivate(root->right, obj);
+			addPrivate(root->right, key);
 		}
 		else
 		{
-			root->right = node(obj);
+			root->right = node(key);
 		}
-	}
+	}*/
+
+		/* If the tree is empty, return a new Node */
+		if (root == NULL)
+		{
+			return node(key);
+		}
+		/* Otherwise, recur down the tree */
+		if (key < root->key)
+		{
+			root->left = addPrivate(root->left, key);
+			// Set parent of root of left subtree 
+			root->left->parent = root;
+		}
+		else if (key > root->key || key.isEqual(root->key))
+		{
+			root->right = addPrivate(root->right, key);
+			// Set parent of root of right subtree 
+			root->right->parent = root;
+		}
+
+		/* return the (unchanged) Node pointer */
+		return root;
 }
 
 template <class T>
-Node<T>* Tree<T>::node(T obj)
+void Tree<T>::removeTree()
 {
-	Node<T>* t = new Node<T>;
-	t->key = obj;
-	t->left = t->right = NULL;
-	return t;
+	removeTreePrivate(root);
 }
 
 template <class T>
-void Tree<T>::show()
-{
-	showPrivate(root);
-}
-
-template <class T>
-void Tree<T>::showPrivate(Node<T>* root)
+void Tree<T>::removeTreePrivate(Node<T>*& root)
 {
 	if (root != NULL)
 	{
-		showPrivate(root->left);
-		cout << root->key << endl;
-		showPrivate(root->right);
+		if (root->left != NULL)
+			removeTreePrivate(root->left);
+		if (root->right != NULL)
+			removeTreePrivate(root->right);
+		delete root;
 	}
+	root = NULL;
 }
 
 template <class T>
@@ -86,66 +117,41 @@ Node<T>* Tree<T>::findPrivate(Node<T>* root, T key)
 	return NULL;
 }
 
-template <class T>
-void Tree<T>::removeTree()
+template<class T>
+void Tree<T>::deleteNode(Node<T>* ptr)
 {
-	removeTreePrivate(root);
-}
+	Node<T>* y = ptr;	//Указатель на элемент, который мы будем удалять
 
-template <class T>
-void Tree<T>::removeTreePrivate(Node<T>*& root)
-{
-	if (root != NULL)
+	if (y->left != NULL && y->right != NULL)		//Если у удаляемого элемента 2 ребенка
 	{
-		if(root->left != NULL)
-			removeTreePrivate(root->left);
-		if(root->right != NULL)
-			removeTreePrivate(root->right);
-		delete root;
+		y = findMin(y->right);
 	}
-	root = NULL;
-}
 
-template <class T>
-void Tree<T>::remove(T key)
-{
-	removePrivate(root, key);
-}
+	Node<T>* child;		//Указатель на ребенка удаляемого элемента
 
-template <class T>
-Node<T>* Tree<T>::removePrivate(Node<T>*& root, T key)
-{
-	Node<T>* temp;
-	if (root == NULL)
-		return NULL;
-	else if (key < root->key)
-		root->left = removePrivate(root->left, key);
-	else if (key > root->key)
-		root->right = removePrivate(root->right, key);
-	
-	else if (key == root->key)
-	{
-		if (root->left && root->right)					
-		{												
-			temp = findMin(root->right);
-				root->key = temp->key;
-				root->right = removePrivate(root->right, root->key);
-		}
-		else
-		{
-			temp = root;
-				if (root->left == NULL)
-					root = root->right;
-				else if (root->right == NULL)
-					root = root->left;
-			delete temp;
-		}
-	}
+	if (y->left != NULL)					//Если у удаляемого элемента есть левый ребенок
+		child = y->left;					//child указывает на левого
 	else
+		child = y->right;					//Иначе child указывает на прового
+
+	if (child != NULL)
+		child->parent = y->parent;
+
+	if (y->parent == NULL)					//Если удаляемый элемент - корень дерева, то корень дерева - его ребенок child
 	{
-		root->right = removePrivate(root->right, key);
+		root = child;
 	}
-	return root;
+	else									//Если y - не корень дерева
+	{
+		if (y == (y->parent)->left)			//Если y слева от его родителя
+			(y->parent)->left = child;		//Теперь вместо y слева от родителя будет child
+		else
+			(y->parent)->right = child;		//Если y - правый сын, то теперь справа будет child
+	}
+	if (y != ptr)
+		ptr->key = y->key;					//Если y - не удаляемый элемент, переносим ключ
+
+	delete y;
 }
 
 template <class T>
@@ -160,181 +166,46 @@ Node<T>* Tree<T>::findMin(Node<T>* root)
 }
 
 template <class T>
-void Tree<T>::showByFilter(T key, bool* flag)
+bool Tree<T>::Empty()
 {
-	showByFilterPrivate(root, key, flag);
+	if (root == NULL)
+		return true;
+	else
+		return false;
 }
 
 template <class T>
-void Tree<T>::showByFilterPrivate(Node<T>* root, T key, bool* flag)
+Node<T>* Tree<T>::begin()
 {
-	if (root != NULL)
+	Node<T>* _begin = this->root;
+	if (this->root == NULL)
 	{
-		showByFilterPrivate(root->left, key, flag);
-		if (root->key.isEqual(key, flag))
-			cout << root->key << endl;
-		showByFilterPrivate(root->right, key, flag);
-	}
-}
-
-template <class T>
-void Tree<T>::calculateCountOfNodes(Node<T>* root, int& count)
-{
-	if (root != NULL)
-	{
-		calculateCountOfNodes(root->left, count);
-		count++;
-		calculateCountOfNodes(root->right, count);
-	}
-}
-
-template <class T>
-void Tree<T>::fillArray(Node<T>* root, T* arr, int& index)
-{
-	if (root != NULL)
-	{
-		fillArray(root->right, arr, index);
-		arr[index] = root->key;
-		index++;
-		fillArray(root->left, arr, index);
-	}
-}
-
-template <class T>
-void Tree<T>::balance(Node<T>*& root, int n, int size, T* arr)
-{
-	if (n == size)
-	{
-		root = NULL;
-		return;
+		return NULL;
 	}
 	else
 	{
-		int m = (n + size) / 2;					//Выбираем средний элемент отрезка
-		root = new Node<T>;
-		root->key = arr[m];
-		balance(root->left, n, m, arr);
-		balance(root->right, m + 1, size, arr);
+		while (_begin->left != NULL)
+		{
+			_begin = _begin->left;
+		}
+		return _begin;
 	}
 }
 
 template <class T>
-void Tree<T>::sort(SortType sortType)
+Node<T>* Tree<T>::end()
 {
-	int size = 0;
-	calculateCountOfNodes(root, size);			//Подсчет количества элементов в дереве
-
-	T* arr = new T[size];
-	T temp;
-	int index = 0;
-	fillArray(root, arr, index);
-	
-	temp.changeField();
-
-	if (sortType == SORTTYPE_FORWARD)
+	Node<T>* _end = this->root;
+	if (_end == NULL)
 	{
-		for (int i = 0; i < size; i++)
-		{
-			for (int j = 0; j < size; j++)
-			{
-				if (arr[i] < arr[j])
-				{
-					temp = arr[i];
-					arr[i] = arr[j];
-					arr[j] = temp;
-				}
-			}
-		}
+		return NULL;
 	}
 	else
 	{
-		for (int i = 0; i < size; i++)
+		while (_end->right != NULL)
 		{
-			for (int j = 0; j < size; j++)
-			{
-				if (arr[i] > arr[j])
-				{
-					temp = arr[i];
-					arr[i] = arr[j];
-					arr[j] = temp;
-				}
-			}
+			_end = _end->right;
 		}
-	}
-
-	balance(root, 0, size, arr);
-	delete[]arr;
-}
-
-template <class T>
-void Tree<T>::writeFile(string fileName)
-{
-	ofstream fout(fileName, ios::out);		//Открытие файла для записи
-	if(fout.is_open())
-		writeFilePrivate(root, fout);		//Вызов рекурсивной функции для записи в файл
-	fout.close();							//Закрытие файла
-}
-
-template <class T>
-void Tree<T>::writeFilePrivate(Node<T>* Tree, ofstream& fout)
-{
-	if (root != NULL)
-	{
-		if (Tree)
-		{
-			writeFilePrivate(Tree->left, fout);		//Рекурсивная функция для вывода в файл левого поддерева
-			fout << Tree->key << endl;						//Записываем текущий узел в файл с помощью перегрузки
-			writeFilePrivate(Tree->right, fout);	//Рекурсивная функция для вывода в файл правого поддерева
-		}
-	}
-}
-
-template <class T>
-void Tree<T>::readFile(string fileName)
-{
-	T temp;									//Временный объект для чтения данных
-	ifstream fin(fileName, ios::in);		//Открытие файла для чтения
-
-	while (fin >> temp)						//Чтение из файла с помощью перегрузки
-		this->add(temp);
-
-	fin.close();							//Закрытие файла
-}
-
-template <class T>
-void Tree<T>::writeToBinary(BinaryFile<T> &obj)
-{
-	if (obj.isOpenForWrite())
-		writeToBinaryPrivate(root, obj);
-}
-
-template <class T>
-void Tree<T>::writeToBinaryPrivate(Node<T>* root, BinaryFile<T>& obj)
-{
-	if (root != NULL)
-	{
-		if (root)
-		{
-			writeToBinaryPrivate(root->left, obj);		//Рекурсивная функция для вывода в бинарный файл левого поддерева
-			obj.write(root->key);						//Записываем текущий узел в бинарный файл
-			writeToBinaryPrivate(root->right, obj);		//Рекурсивная функция для вывода в бинарный файл правого поддерева
-		}
-	}
-}
-
-template <class T>
-void Tree<T>::readFromBinary(BinaryFile<T>& obj)
-{
-	T temp;									//Временный объект для чтения данных
-
-	if (obj.isOpenForRead())
-	{
-		while (true)						
-		{
-			obj.read(temp);
-			if (obj.endFile())
-				break;
-			this->add(temp);
-		}
+		return _end + 1;
 	}
 }

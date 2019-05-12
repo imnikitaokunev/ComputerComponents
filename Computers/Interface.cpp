@@ -24,16 +24,16 @@ void Interface<T>::menu()
 		switch (choice)
 		{
 		case '1': 
-			cpu.fun("CPU.txt", "CPU.dat");
+			cpu.fun();
 			break;
 		case '2': 
-			memory.fun("Memory.txt", "Memory.dat");
+			memory.fun();
 			break;
 		case '3': 
-			graphicscard.fun("GraphicsCards.txt", "GraphicsCard.dat");
+			graphicscard.fun();
 			break;
 		case '4':
-			computer.fun("Computers.txt", "Computers.dat");
+			computer.fun();
 			break;
 		case '0':
 			exit(1);
@@ -48,26 +48,25 @@ void Interface<T>::menu()
 }
 
 template <class T>
-void Interface<T>::fun(string textFileName, string binaryFileName)
+void Interface<T>::fun()
 {
 	Tree<T> tree;
-	char choice;
-	// tree.readFile(fileName);
-	BinaryFile<T> binaryFile(binaryFileName);
+	Iterator<T> iterator(tree);
 
+	char choice;
 	do
 	{
 		system("cls");
 		obj.title();
 		cout << "\t1. Добавить." << endl
-			<< "\t2. Просмотреть." << endl
-			<< "\t3. Изменить." << endl
+			<< "\t2. Просмотреть." << endl/*
+			<< "\t3. Изменить." << endl*/
 			<< "\t4. Удалить." << endl
 			<< "\t5. Удалить все." << endl
-			<< "\t6. Поиск." << endl
-			<< "\t7. Сортировка." << endl
-			<< "\t8. Запись в файл." << endl
-			<< "\t9. Чтение из файла." << endl
+			//<< "\t6. Поиск." << endl
+			//<< "\t7. Сортировка." << endl
+			//<< "\t8. Запись в файл." << endl
+			//<< "\t9. Чтение из файла." << endl
 			<< "\t0. Выход." << endl
 			<< endl << "\t  >> ";
 		choice = _getch();
@@ -91,18 +90,42 @@ void Interface<T>::fun(string textFileName, string binaryFileName)
 			obj.title();
 			cout << endl;
 			obj.header();
-			tree.show();
+
+			if (!tree.Empty())
+			{
+				iterator = tree.begin();
+				T tmp;
+				while (iterator != tree.end())
+				{
+					tmp = *iterator;
+					cout << tmp << endl;
+					++iterator;
+				}
+			}
+
 			cout << endl;
 			system("pause");
 			break;
 		}
-		case '3':
+		/*case '3':
 		{
 			system("cls");
 			obj.title();
 			cout << endl;
 			obj.header();
-			tree.show();
+
+			if (!tree.Empty())
+			{
+				iterator = tree.begin();
+				T tmp;
+				while (iterator != tree.end())
+				{
+					tmp = *iterator;
+					cout << tmp << endl;
+					++iterator;
+				}
+			}
+
 			cout << endl;
 			cout << "Какой элемент вы хотите изменить?" << endl;
 			T temp;
@@ -115,17 +138,31 @@ void Interface<T>::fun(string textFileName, string binaryFileName)
 				cout << "Элемент " << temp.getModel() << " успешно изменен." << endl;
 			}
 			else
+			{
 				cout << "Ничего не найдено." << endl;
+			}
 			system("pause");
 			break;
-		}
+		}*/
 		case '4':
 		{
 			system("cls");
 			obj.title();
 			cout << endl;
 			obj.header();
-			tree.show();
+			
+			if (!tree.Empty())
+			{
+				iterator = tree.begin();
+				T tmp;
+				while (iterator != tree.end())
+				{
+					tmp = *iterator;
+					cout << tmp << endl;
+					++iterator;
+				}
+			}
+
 			cout << endl;
 			cout << "Какой элемент вы хотите удалить?" << endl;
 			T temp;
@@ -134,11 +171,14 @@ void Interface<T>::fun(string textFileName, string binaryFileName)
 			cout << endl;
 			if (ptr != nullptr)
 			{
-				tree.remove(temp);
+				tree.deleteNode(ptr);
 				cout << "Элемент " << temp.getModel() << " успешно удален." << endl;
 			}
 			else
+			{
 				cout << "Ничего не найдено." << endl;
+			}
+
 			system("pause");
 			break;
 		}
@@ -147,7 +187,7 @@ void Interface<T>::fun(string textFileName, string binaryFileName)
 			tree.removeTree();
 			break;
 		}
-		case '6':
+		/*case '6':
 		{
 			system("cls");
 			T temp;
@@ -267,7 +307,7 @@ void Interface<T>::fun(string textFileName, string binaryFileName)
 			} while (choice != '1' && choice != '2');
 
 			break;
-		}
+		}*/
 		case '0': 
 			break;
 		default:
@@ -278,5 +318,4 @@ void Interface<T>::fun(string textFileName, string binaryFileName)
 		}
 	} while (choice != '0');
 
-	//tree.writeFile(textFileName);
 }
