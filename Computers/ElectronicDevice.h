@@ -3,6 +3,7 @@
 #include <string>
 #include <iomanip>
 #include <conio.h>
+#include <fstream>
 #include "Input.h"
 #include "InputNumber.cpp"
 using namespace std;
@@ -46,10 +47,14 @@ public:
 	void setCost(int cst);
 	string getModel() const;
 	int getCost() const;
+
 	virtual void title();
 	virtual void header();
-	bool compare(ElectronicDevice& other, bool* flag);
+
 	friend istream& operator >>(istream& in, ElectronicDevice& obj);
 	friend ostream& operator <<(ostream& out, ElectronicDevice& obj);
+	friend ifstream& operator >>(ifstream& in, ElectronicDevice& obj);
+	friend ofstream& operator <<(ofstream& out, ElectronicDevice& obj);
+	virtual void writeToBinary(ofstream& out, ElectronicDevice& obj);
 };
 

@@ -1,6 +1,9 @@
 #pragma once
 #include <iomanip>
 #include <iostream>
+#include <fstream>
+#include "BinaryFile.h"
+#include "BinaryFile.cpp"
 using namespace std;
 
 enum SortType
@@ -32,6 +35,9 @@ private:
 	void calculateCountOfNodes(Node<T>* root, int& count);
 	void fillArray(Node<T>* root, T* arr, int& index);
 	void balance(Node<T>*& root, int n, int size, T* arr);
+	void writeFilePrivate(Node<T>* root, ofstream& fout);
+	void writeToBinaryPrivate(Node<T>* root, BinaryFile<T>& obj);
+
 public:
 	Tree()
 	{
@@ -49,8 +55,10 @@ public:
 	void remove(T key);
 	void showByFilter(T key, bool* flag);
 	void sort(SortType sortType);
-	void readFile();
-	void writeFile();
+	void readFile(string FileName);
+	void writeFile(string fileName);
+	void writeToBinary(BinaryFile<T> &obj);
+	void readFromBinary(BinaryFile<T>& obj);
 };
 
 

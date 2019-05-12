@@ -265,3 +265,76 @@ void Tree<T>::sort(SortType sortType)
 	balance(root, 0, size, arr);
 	delete[]arr;
 }
+
+template <class T>
+void Tree<T>::writeFile(string fileName)
+{
+	ofstream fout(fileName, ios::out);		//Открытие файла для записи
+	if(fout.is_open())
+		writeFilePrivate(root, fout);		//Вызов рекурсивной функции для записи в файл
+	fout.close();							//Закрытие файла
+}
+
+template <class T>
+void Tree<T>::writeFilePrivate(Node<T>* Tree, ofstream& fout)
+{
+	if (root != NULL)
+	{
+		if (Tree)
+		{
+			writeFilePrivate(Tree->left, fout);		//Рекурсивная функция для вывода в файл левого поддерева
+			fout << Tree->key << endl;						//Записываем текущий узел в файл с помощью перегрузки
+			writeFilePrivate(Tree->right, fout);	//Рекурсивная функция для вывода в файл правого поддерева
+		}
+	}
+}
+
+template <class T>
+void Tree<T>::readFile(string fileName)
+{
+	T temp;									//Временный объект для чтения данных
+	ifstream fin(fileName, ios::in);		//Открытие файла для чтения
+
+	while (fin >> temp)						//Чтение из файла с помощью перегрузки
+		this->add(temp);
+
+	fin.close();							//Закрытие файла
+}
+
+template <class T>
+void Tree<T>::writeToBinary(BinaryFile<T> &obj)
+{
+	if (obj.isOpenForWrite())
+		writeToBinaryPrivate(root, obj);
+}
+
+template <class T>
+void Tree<T>::writeToBinaryPrivate(Node<T>* root, BinaryFile<T>& obj)
+{
+	if (root != NULL)
+	{
+		if (root)
+		{
+			writeToBinaryPrivate(root->left, obj);		//Рекурсивная функция для вывода в бинарный файл левого поддерева
+			obj.write(root->key);						//Записываем текущий узел в бинарный файл
+			writeToBinaryPrivate(root->right, obj);		//Рекурсивная функция для вывода в бинарный файл правого поддерева
+		}
+	}
+}
+
+template <class T>
+void Tree<T>::readFromBinary(BinaryFile<T>& obj)
+{
+	T temp;									//Временный объект для чтения данных
+
+	if (obj.isOpenForRead())
+	{
+		while (true)						
+		{
+			obj.read(temp);
+			if (obj.endFile())
+				break;
+			this->add(temp);
+		}
+	}
+}

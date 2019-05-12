@@ -30,19 +30,25 @@ public:
 		this->capacity = other.capacity;
 		this->drive = other.drive;
 	}
+
 	void setDrive(int dr);
 	int getDrive() const;
-	virtual void title();
-	virtual void header();
-	bool isEqual(Computer& other, bool* flag);
-	bool isEqual(Computer& other);
+	virtual void title() override;
+	virtual void header() override;
+
 	void change();
 	void search(bool *flag);
 	void changeField();
 
-	friend istream& operator >> (istream& in, Computer& obj);
-	friend ostream& operator << (ostream& out, Computer& obj);
+	bool isEqual(Computer& other);
+	bool isEqual(Computer& other, bool* flag);
 	bool operator == (Computer& other);
 	bool operator >(Computer& other);
 	bool operator <(Computer& other);
+	friend istream& operator >> (istream& in, Computer& obj);
+	friend ostream& operator << (ostream& out, Computer& obj);
+	friend ifstream& operator >> (ifstream& fin, Computer& obj);
+	friend ofstream& operator << (ofstream& fout, Computer& obj);
+	void writeToBinary(ofstream& fout, Computer& obj);
+	void readFromBinary(ifstream& fin, Computer& obj);
 };

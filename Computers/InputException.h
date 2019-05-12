@@ -13,3 +13,5 @@ public:
 	}
 	string code();
 };
+
+void my_term();

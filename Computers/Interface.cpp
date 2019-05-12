@@ -3,9 +3,9 @@
 template <class T>
 void Interface<T>::menu()
 {
-	//Interface <CPU> cpu;
-	//Interface <Memory> memory;
-	//Interface <GraphicsCard> graphicscard;
+	Interface <CPU> cpu;
+	Interface <Memory> memory;
+	Interface <GraphicsCard> graphicscard;
 	Interface <Computer> computer;
 
 	char choice;
@@ -24,16 +24,16 @@ void Interface<T>::menu()
 		switch (choice)
 		{
 		case '1': 
-		//	cpu.fun();
+			cpu.fun("CPU.txt", "CPU.dat");
 			break;
 		case '2': 
-		//	memory.fun();
+			memory.fun("Memory.txt", "Memory.dat");
 			break;
 		case '3': 
-		//	graphicscard.fun();
+			graphicscard.fun("GraphicsCards.txt", "GraphicsCard.dat");
 			break;
 		case '4':
-			computer.fun();
+			computer.fun("Computers.txt", "Computers.dat");
 			break;
 		case '0':
 			exit(1);
@@ -48,11 +48,13 @@ void Interface<T>::menu()
 }
 
 template <class T>
-void Interface<T>::fun()
+void Interface<T>::fun(string textFileName, string binaryFileName)
 {
-
 	Tree<T> tree;
 	char choice;
+	// tree.readFile(fileName);
+	BinaryFile<T> binaryFile(binaryFileName);
+
 	do
 	{
 		system("cls");
@@ -64,7 +66,8 @@ void Interface<T>::fun()
 			<< "\t5. Удалить все." << endl
 			<< "\t6. Поиск." << endl
 			<< "\t7. Сортировка." << endl
-			<< "\t8. *Отмена последних изменений." << endl
+			<< "\t8. Запись в файл." << endl
+			<< "\t9. Чтение из файла." << endl
 			<< "\t0. Выход." << endl
 			<< endl << "\t  >> ";
 		choice = _getch();
@@ -197,6 +200,74 @@ void Interface<T>::fun()
 			system("pause");
 			break;
 		}
+		case '8':
+		{
+			do
+			{
+				system("cls");
+				obj.title();
+				cout << "  В какой файл записать?" << endl;
+				cout << "\t1. Текстовый." << endl
+					<< "\t2. Бинарный." << endl
+					<< "\t0. Назад." << endl
+					<< endl << "\t  >> ";
+				choice = _getch();
+				switch (choice)
+				{
+				case '1':
+					tree.writeFile(textFileName);
+					break;
+				case '2':
+					binaryFile.openForWrite();
+					tree.writeToBinary(binaryFile);
+					binaryFile.closeWrite();
+					break;
+				case '0':
+					break;
+				default:
+					cout << endl;
+					cout << "Некорректный ввод." << endl;;
+					system("pause");
+					break;
+				}
+			} while (choice != '1' && choice != '2');
+
+			break;
+		}
+		case '9':
+		{
+			do
+			{
+				system("cls");
+				obj.title();
+				cout << "  Из какого файла прочитать?" << endl;
+				cout << "\t1. Текстовый." << endl
+					<< "\t2. Бинарный." << endl
+					<< "\t0. Назад." << endl
+					<< endl << "\t  >> ";
+				choice = _getch();
+				switch (choice)
+				{
+				case '1':
+					tree.readFile(textFileName);
+					break;
+				case '2':
+					binaryFile.openForRead();
+					tree.readFromBinary(binaryFile);
+					binaryFile.closeRead();
+					break;
+				case '0':
+					break;
+				default:
+					cout << endl;
+					cout << "Некорректный ввод." << endl;;
+					system("pause");
+					break;
+				}
+			} while (choice != '1' && choice != '2');
+
+			break;
+		}
 		case '0': 
 			break;
 		default:
@@ -206,4 +277,6 @@ void Interface<T>::fun()
 			break;
 		}
 	} while (choice != '0');
+
+	//tree.writeFile(textFileName);
 }

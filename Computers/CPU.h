@@ -22,14 +22,27 @@ public:
 		this->countOfCores = other.countOfCores;
 		this->baseFrequency = other.baseFrequency;
 	}
+
 	void setCountOfCores(int cores);
 	void setBaseFrequency(int freq);
 	int getCountOfCores() const;
 	int getBaseFrequency() const;
 	virtual void title() override;
 	virtual void header() override;
-	bool compare(CPU& other, bool* flag);
+
+	void change();
+	void search(bool* flag);
+	void changeField();
+
+	bool isEqual(CPU& other);
+	bool isEqual(CPU& other, bool* flag);
+	bool operator == (CPU& other);
+	bool operator >(CPU& other);
+	bool operator <(CPU& other);
 	friend istream& operator >> (istream& in, CPU& obj);
 	friend ostream& operator << (ostream& out, CPU& obj);
-
+	friend ifstream& operator >> (ifstream& fin, CPU& obj);
+	friend ofstream& operator << (ofstream& fout, CPU& obj);
+	void writeToBinary(ofstream& out, CPU& obj);
+	void readFromBinary(ifstream& in, CPU& obj);
 };

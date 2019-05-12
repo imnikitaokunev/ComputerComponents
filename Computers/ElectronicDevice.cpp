@@ -54,3 +54,24 @@ ostream& operator << (ostream& out, ElectronicDevice& obj)
 	out << setw(20) << obj.model << setw(4) << "|" << setw(7) << obj.cost;
 	return out;
 }
+
+ifstream& operator >>(ifstream& fin, ElectronicDevice& obj)
+{
+	getline(fin, obj.model, '*');
+	fin >> obj.cost;
+
+	return fin;
+}
+
+ofstream& operator <<(ofstream& fout, ElectronicDevice& obj)
+{
+	fout << obj.model << "*" << ' ' << obj.cost;
+
+	return fout;
+}
+
+void ElectronicDevice::writeToBinary(ofstream& out, ElectronicDevice& obj)
+{
+	out.write(obj.model.c_str(), sizeof(obj.model));
+	out.write(reinterpret_cast<char*>(&obj.cost), sizeof(obj.cost));
+}

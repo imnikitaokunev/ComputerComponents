@@ -15,14 +15,31 @@ public:
 	{
 
 	}
-	GraphicsCard(const GraphicsCard& other) : ElectronicDevice(other)
+	GraphicsCard(const GraphicsCard& other)
 	{
+		this->cost = other.cost;
+		this->model = other.model;
 		this->memorySize = other.memorySize;
 	}
+
 	void setMemorySize(int mem);
 	int getMemorySize() const;
 	virtual void title() override;
 	virtual void header() override;
+
+	void change();
+	void search(bool* flag);
+	void changeField();
+
+	bool isEqual(GraphicsCard& other, bool* flag);
+	bool isEqual(GraphicsCard& other);
+	bool operator == (GraphicsCard& other);
+	bool operator >(GraphicsCard& other);
+	bool operator <(GraphicsCard& other);
 	friend istream& operator >> (istream& in, GraphicsCard& obj);
 	friend ostream& operator << (ostream& out, GraphicsCard& obj);
+	friend ifstream& operator >> (ifstream& fin, GraphicsCard& obj);
+	friend ofstream& operator << (ofstream& fout, GraphicsCard& obj);
+	void writeToBinary(ofstream& fout, GraphicsCard& obj);
+	void readFromBinary(ifstream& fin, GraphicsCard& obj);
 };
