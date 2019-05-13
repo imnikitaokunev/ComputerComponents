@@ -25,6 +25,6 @@ public:
 	bool operator == (Node<T>* root);	//¬овзращает true, если итератор указывает на root, и false, если не указывает
 	bool operator != (Node<T>* root);	//¬овзращает true, если итератор не указывает на root, и false, если указывает
 	void operator= (Node<T>* root);		//”станавливает итератор на root
-	T operator*();						//–азыменовывает указатель
+	T& operator*();						//–азыменовывает указатель
 };
 

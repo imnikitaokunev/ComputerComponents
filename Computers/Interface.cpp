@@ -59,11 +59,11 @@ void Interface<T>::fun()
 		system("cls");
 		obj.title();
 		cout << "\t1. Добавить." << endl
-			<< "\t2. Просмотреть." << endl/*
-			<< "\t3. Изменить." << endl*/
+			<< "\t2. Просмотреть." << endl
+			<< "\t3. Изменить." << endl
 			<< "\t4. Удалить." << endl
 			<< "\t5. Удалить все." << endl
-			//<< "\t6. Поиск." << endl
+			<< "\t6. Поиск." << endl
 			//<< "\t7. Сортировка." << endl
 			//<< "\t8. Запись в файл." << endl
 			//<< "\t9. Чтение из файла." << endl
@@ -94,11 +94,9 @@ void Interface<T>::fun()
 			if (!tree.Empty())
 			{
 				iterator = tree.begin();
-				T tmp;
 				while (iterator != tree.end())
 				{
-					tmp = *iterator;
-					cout << tmp << endl;
+					cout << *iterator << endl;
 					++iterator;
 				}
 			}
@@ -107,7 +105,7 @@ void Interface<T>::fun()
 			system("pause");
 			break;
 		}
-		/*case '3':
+		case '3':
 		{
 			system("cls");
 			obj.title();
@@ -143,7 +141,7 @@ void Interface<T>::fun()
 			}
 			system("pause");
 			break;
-		}*/
+		}
 		case '4':
 		{
 			system("cls");
@@ -154,11 +152,9 @@ void Interface<T>::fun()
 			if (!tree.Empty())
 			{
 				iterator = tree.begin();
-				T tmp;
 				while (iterator != tree.end())
 				{
-					tmp = *iterator;
-					cout << tmp << endl;
+					cout << *iterator << endl;
 					++iterator;
 				}
 			}
@@ -185,6 +181,17 @@ void Interface<T>::fun()
 		case '5':
 		{
 			tree.removeTree();
+			break;
+		}
+		case '6':
+		{
+			Algorithm<T> algorithm(tree);
+			system("cls");
+			T temp;
+			bool flag[8] = { false, false, false, false, false, false, false, false };
+			temp.search(flag);
+			algorithm.search(tree.begin(), tree.end(), temp, flag);
+			system("pause");
 			break;
 		}
 		/*case '6':

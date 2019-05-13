@@ -1,6 +1,6 @@
 #pragma once
 #include "Computer.h"
-#include "Iterator.cpp"
+#include "Algorithm.cpp"
 
 template <class T>
 class Interface

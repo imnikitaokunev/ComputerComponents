@@ -90,7 +90,7 @@ void Iterator<T>::operator=(Node<T>* root)
 }
 
 template <class T>
-T Iterator<T>::operator*()
+T& Iterator<T>::operator*()
 {
 	return current->key;
 }

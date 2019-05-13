@@ -26,54 +26,27 @@ void Tree<T>::add(T key)
 template <class T>
 Node<T>* Tree<T>::addPrivate(Node<T>* root, T key)
 {
-	/*if (root == NULL)
+	/* If the tree is empty, return a new Node */
+	if (root == NULL)
 	{
-		root = node(key);
+		return node(key);
 	}
-	else if (key < root->key)
+	/* Otherwise, recur down the tree */
+	if (key < root->key)
 	{
-		if (root->left != NULL)
-		{
-			addPrivate(root->left, key);
-		}
-		else
-		{
-			root->left = node(key);
-		}
+		root->left = addPrivate(root->left, key);
+		// Set parent of root of left subtree 
+		root->left->parent = root;
 	}
-	else
+	else if (key > root->key || key.isEqual(root->key))
 	{
-		if (root->right != NULL)
-		{
-			addPrivate(root->right, key);
-		}
-		else
-		{
-			root->right = node(key);
-		}
-	}*/
+		root->right = addPrivate(root->right, key);
+		// Set parent of root of right subtree 
+		root->right->parent = root;
+	}
 
-		/* If the tree is empty, return a new Node */
-		if (root == NULL)
-		{
-			return node(key);
-		}
-		/* Otherwise, recur down the tree */
-		if (key < root->key)
-		{
-			root->left = addPrivate(root->left, key);
-			// Set parent of root of left subtree 
-			root->left->parent = root;
-		}
-		else if (key > root->key || key.isEqual(root->key))
-		{
-			root->right = addPrivate(root->right, key);
-			// Set parent of root of right subtree 
-			root->right->parent = root;
-		}
-
-		/* return the (unchanged) Node pointer */
-		return root;
+	/* return the (unchanged) Node pointer */
+	return root;
 }
 
 template <class T>

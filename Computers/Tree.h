@@ -2,6 +2,13 @@
 #include <iostream>
 using namespace std;
 
+enum SortType
+{
+	SORTTYPE_FORWARD,
+	SORTTYPE_BACKWARDS
+};
+
+
 template <class T>
 struct Node
 {
@@ -39,6 +46,5 @@ public:
 	bool Empty();						//Возвращает true, если дерево пустое, и false, если нет
 	Node<T>* begin();					//Возвращает указатель на первый элемент дерева
 	Node<T>* end();						//Вовзращает указатель на элемент, следующий после конца дерева
-	
 };
 
