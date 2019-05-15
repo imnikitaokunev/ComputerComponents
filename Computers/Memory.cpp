@@ -22,7 +22,7 @@ int Memory::getCapacity() const
 
 void Memory::title()
 {
-	cout << setw(64) << "---Оперативная память---" << endl;
+	cout << setw(67) << "---Оперативная память---" << endl << endl;
 }
 
 void Memory::header()

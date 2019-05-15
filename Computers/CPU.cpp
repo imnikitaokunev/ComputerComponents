@@ -22,7 +22,7 @@ int CPU::getBaseFrequency() const
 
 void CPU::title()
 {
-	cout << setw(67) << "---Процессоры---" << endl;
+	cout << setw(67) << "---Процессоры---" << endl << endl;
 }
 
 void CPU::header()

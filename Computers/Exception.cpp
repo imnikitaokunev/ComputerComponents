@@ -4,4 +4,3 @@ string Exception::what()
 {
 	return message;
 }
-

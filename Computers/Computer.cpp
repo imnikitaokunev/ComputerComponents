@@ -13,7 +13,7 @@ int Computer::getDrive() const
 
 void Computer::title()
 {
-	cout << setw(67) << "---Компьютеры---" << endl;
+	cout << setw(67) << "---Компьютеры---" << endl << endl;
 }
 
 void Computer::header()
@@ -438,7 +438,7 @@ void Computer::writeToBinary(ofstream& out, Computer& obj)
 	out.write(obj.memoryType.c_str(), sizeof(obj.memoryType));
 	out.write(reinterpret_cast<char*>(&obj.memorySize), sizeof(obj.memorySize));
 	out.write(reinterpret_cast<char*>(&obj.drive), sizeof(obj.drive));
-	//out.write("\n", sizeof("\n"));
+	out.write("\n", sizeof("\n"));
 }
 
 void Computer::readFromBinary(ifstream& in, Computer& obj)
@@ -451,7 +451,7 @@ void Computer::readFromBinary(ifstream& in, Computer& obj)
 	in.read(const_cast<char*>(obj.memoryType.c_str()), sizeof(obj.memoryType));
 	in.read(reinterpret_cast<char*>(&obj.memorySize), sizeof(obj.memorySize));
 	in.read(reinterpret_cast<char*>(&obj.drive), sizeof(obj.drive));
-	//string buf;
-	//getline(in, buf, '\n');
-	//in.get();
+	string buf;
+	getline(in, buf, '\n');
+	in.get();
 }

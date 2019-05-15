@@ -12,7 +12,7 @@ int GraphicsCard::getMemorySize() const
 
 void GraphicsCard::title()
 {
-	cout << setw(38) << "---Видеокарты---" << endl;
+	cout << setw(67) << "---Видеокарты---" << endl << endl;
 }
 
 void GraphicsCard::header()

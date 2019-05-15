@@ -29,7 +29,7 @@ void ElectronicDevice::header()
 
 void ElectronicDevice::title()
 {
-	cout << endl << setw(73) << "---Electronic appliancies---" << endl;
+	cout << endl << setw(73) << "---Ёлектронные устройства---" << endl << endl;
 }
 
 istream& operator >>(istream& in, ElectronicDevice& obj)
@@ -68,10 +68,4 @@ ofstream& operator <<(ofstream& fout, ElectronicDevice& obj)
 	fout << obj.model << "*" << ' ' << obj.cost;
 
 	return fout;
-}
-
-void ElectronicDevice::writeToBinary(ofstream& out, ElectronicDevice& obj)
-{
-	out.write(obj.model.c_str(), sizeof(obj.model));
-	out.write(reinterpret_cast<char*>(&obj.cost), sizeof(obj.cost));
 }

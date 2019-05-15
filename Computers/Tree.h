@@ -30,6 +30,8 @@ private:
 	void removeTreePrivate(Node<T>*& root);			//Удаляет все элементы дерева
 	Node<T>* findPrivate(Node<T>* root, T key);		//Возвращает указатель на элемент с ключом key
 	Node<T>* findMin(Node<T>* root);				//Возвращает указатель на минимальный элемент
+	int height(Node<T>* root);						//Возвращает высоту дерева
+
 public:
 	Tree()
 	{
@@ -46,5 +48,6 @@ public:
 	bool Empty();						//Возвращает true, если дерево пустое, и false, если нет
 	Node<T>* begin();					//Возвращает указатель на первый элемент дерева
 	Node<T>* end();						//Вовзращает указатель на элемент, следующий после конца дерева
+	int height();						//Возвращает высоту дерева
 };
 

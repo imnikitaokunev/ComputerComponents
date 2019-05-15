@@ -6,7 +6,7 @@ using namespace std;
 class Exception
 {
 protected:
-	string message;
+	string message;					//Сообщение об ошибке
 
 public:
 	explicit Exception(string msg)
@@ -15,4 +15,3 @@ public:
 	}
 	string what();
 };
-

@@ -15,15 +15,15 @@ public:
 		this->closeRead();
 		this->closeWrite();
 	}
-	void openForWrite();
-	void closeWrite();
-	void openForRead();
-	void closeRead();
-	bool isOpenForRead();
-	bool isOpenForWrite();
-	void remoteForRead();
-	void remoteForWrite();
-	bool endFile();
-	void write(T& obj);
-	void read(T& obj);
+	void openForWrite();		//Открывает файл для записи
+	void closeWrite();			//Закрывает файл, открытый для записи
+	void openForRead();			//Открывает файл для чтения
+	void closeRead();			//Закрывает файл, открытый для чтения
+	bool isOpenForRead();		//Возвращает true, если файл открыт для чтения, и false, если нет
+	bool isOpenForWrite();		//Возвращает true, если файл открыт для записи, и false, если нет
+	void remoteForRead();		//Устанавливает указатель для чтения на начало файла
+	void remoteForWrite();		//Устанавливает указатель для записи на начало файла
+	bool endFile();				//Возвращает true, если был достигнут конец файла, и false, если нет
+	void write(T& obj);			//Записывает объект obj в файл
+	void read(T& obj);			//Читает объект из файла в obj
 };

@@ -26,26 +26,26 @@ void Tree<T>::add(T key)
 template <class T>
 Node<T>* Tree<T>::addPrivate(Node<T>* root, T key)
 {
-	/* If the tree is empty, return a new Node */
+	/* Если корень пуст, возвращаем новый узел */
 	if (root == NULL)
 	{
 		return node(key);
 	}
-	/* Otherwise, recur down the tree */
+	/* Иначе рекурсивно проходим по дереву в поисках места */
 	if (key < root->key)
 	{
 		root->left = addPrivate(root->left, key);
-		// Set parent of root of left subtree 
+		//Родитель - левый элемент родителя текущего элемента
 		root->left->parent = root;
 	}
 	else if (key > root->key || key.isEqual(root->key))
 	{
 		root->right = addPrivate(root->right, key);
-		// Set parent of root of right subtree 
+		//Родитель - правый элемент родителя текущего элемента
 		root->right->parent = root;
 	}
 
-	/* return the (unchanged) Node pointer */
+	/* Возвращаем указатель */
 	return root;
 }
 
@@ -53,6 +53,7 @@ template <class T>
 void Tree<T>::removeTree()
 {
 	removeTreePrivate(root);
+	this->root = nullptr;
 }
 
 template <class T>
@@ -181,4 +182,22 @@ Node<T>* Tree<T>::end()
 		}
 		return _end + 1;
 	}
+}
+
+template <class T>
+int Tree<T>::height(Node<T>* t) {
+	int h = 0;
+	if (t != NULL) {
+		int l_height = height(t->left);
+		int r_height = height(t->right);
+		int max_height = __max(l_height, r_height);
+		h = max_height + 1;
+	}
+	return h;
+}
+
+template <class T>
+int Tree<T>::height()
+{
+	return height(this->root);
 }

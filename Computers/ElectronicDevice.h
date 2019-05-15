@@ -48,13 +48,11 @@ public:
 	string getModel() const;
 	int getCost() const;
 
-	virtual void title();
-	virtual void header();
+	virtual void title();												//Заголовок с именем класса
+	virtual void header();												//Заголовок таблицы
 
 	friend istream& operator >>(istream& in, ElectronicDevice& obj);
 	friend ostream& operator <<(ostream& out, ElectronicDevice& obj);
 	friend ifstream& operator >>(ifstream& in, ElectronicDevice& obj);
 	friend ofstream& operator <<(ofstream& out, ElectronicDevice& obj);
-	virtual void writeToBinary(ofstream& out, ElectronicDevice& obj);
 };
-

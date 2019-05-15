@@ -19,7 +19,7 @@ void Iterator<T>::operator++()
 	{
 		prev = current;
 		current = current->parent;
-		while (current->key < prev->key || (current->key).isEqual(prev->key))		
+		while ((current->key < prev->key || (current->key).isEqual(prev->key)) && current->parent != NULL)		
 			current = current->parent;			
 	}
 }
@@ -75,6 +75,15 @@ bool Iterator<T>::operator!=(Node<T>* root)
 }
 
 template <class T>
+bool Iterator<T>::operator!=(Iterator<T>& other)
+{
+	if (this->current != other.current)
+		return true;
+	else
+		return false;
+}
+
+template <class T>
 bool Iterator<T>::operator==(Node<T>* root)
 {
 	if (current == root)
@@ -90,9 +99,14 @@ void Iterator<T>::operator=(Node<T>* root)
 }
 
 template <class T>
+void Iterator<T>::operator=(Iterator<T>& other)
+{
+	this->tree = other.tree;
+	this->current = other.current;
+}
+
+template <class T>
 T& Iterator<T>::operator*()
 {
 	return current->key;
 }
-
-

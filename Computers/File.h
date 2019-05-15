@@ -8,9 +8,9 @@ using namespace std;
 class File
 {
 protected:
-	string fileName;
-	ifstream fin;
-	ofstream fout;
+	string fileName;			//Название файла
+	ifstream fin;				//Объект для чтения
+	ofstream fout;				//Объект для записи
 
 public:
 	File(string fileName)

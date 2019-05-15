@@ -4,7 +4,7 @@
 class InputException : public Exception
 {
 private:
-	string codeOfException;
+	string codeOfException;					//Содержит подробную информацию об ошибке
 
 public:
 	InputException(string msg, string code) : Exception(msg)
